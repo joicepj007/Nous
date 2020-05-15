@@ -12,6 +12,7 @@ import org.jetbrains.anko.sdk27.coroutines.onClick
 import android.content.Intent
 
 import android.net.Uri
+import android.text.util.Linkify
 
 
 class DetailFragment : Fragment() {
@@ -19,13 +20,14 @@ class DetailFragment : Fragment() {
     lateinit var title: String
     lateinit var description: String
     lateinit var uri: Uri
+    lateinit var url: String
             override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.list_detail, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val url = arguments?.let { DetailFragmentArgs.fromBundle(it).url }
+         url = arguments?.let { DetailFragmentArgs.fromBundle(it).url }.toString()
          arguments?.getString("title")?.let {
             title = it
         }
@@ -36,6 +38,7 @@ class DetailFragment : Fragment() {
         item_description.setText(description)
         Picasso.get().load(url).into(img_preview);
          uri = Uri.parse(url)
+
         btn_send.onClick {
             sendEmail()
         }
@@ -46,7 +49,7 @@ class DetailFragment : Fragment() {
        send_report.putExtra(Intent.EXTRA_EMAIL, arrayOf<String>(""))
        send_report.putExtra(Intent.EXTRA_SUBJECT, title)
        send_report.putExtra(Intent.EXTRA_STREAM, uri)
-       send_report.putExtra(Intent.EXTRA_TEXT, description)
+       send_report.putExtra(Intent.EXTRA_TEXT, description+"\n\n"+""+url)
        send_report.type = "text/plain"
        send_report.type = "image/png"
        startActivityForResult(Intent.createChooser(send_report, "Choose an Email client"), 77)

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">NousCodeTest</string>
+    <string name="str_send">Send</string>
 </resources>
