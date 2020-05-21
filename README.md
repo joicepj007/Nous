@@ -48,8 +48,6 @@ Navigation,LiveData,Viewmodel,Picasso,Gson etc
 
 
 
-********** Thanks for letting me to take part in this test. I was glad i could take it. **********
-
 
 
 
